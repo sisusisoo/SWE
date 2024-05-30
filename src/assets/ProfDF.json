@@ -1,0 +1,93 @@
+[
+    {
+        "id":1,
+        "name":"박요한",
+        "major":"컴퓨터공학",
+        "lectureSt":["과제가 힘듦","걍 힘듦","수업내용이 애매함","밥먹고싶음"],
+        "cosultSt":["자고싶다","궁시렁궁시렁","잠온다"],
+        "researchField":["컴공","보안","집밥","백선생"],
+        "lab":["CVPR","학부연구생 O"],
+        "src":"https://newcms.kmu.ac.kr/sites/computereeng/images/20190923_kmu_prof_yhpark.jpg"
+
+    },
+    {
+        "id":2,
+        "name":"홍동권",
+        "major":"컴퓨터공학",
+        "lectureSt":["과제가 힘듦","말 소리가 조금 작음","수업내용이 애매함","밥먹고싶음"],
+        "cosultSt":["자고싶다","궁시렁궁시렁","잠온다"],
+        "researchField":["컴공2","보안","집밥","백선생"],
+        "lab":["DB","학부연구생 X"],
+        "src":"http://newcms.kmu.ac.kr/sites/test/contents/images/2017/10/20171012_151113845_02203.jpg"
+
+    },
+    {
+        "id":3,
+        "name":"남재열",
+        "major":"컴퓨터공학",
+        "lectureSt":["과제가 평이함","수업 잘가르치심","열정 넘치심","밥시간 잘지키심 ㅎ"],
+        "cosultSt":["컴퓨터비젼","궁시렁궁시렁","잠온다"],
+        "researchField":["이제 곧 은퇴...","보안","집밥","백선생"],
+        "lab":["CVPR","학부연구생 O"],
+        "src":"http://newcms.kmu.ac.kr/sites/test/contents/images/2017/10/20171012_153940625_48688.jpg"
+
+    },  
+    {
+        "id":4,
+        "name":"가물치",
+        "major":"민물어",
+        "lectureSt":["맛없음","걍 힘듦","수업내용이 애매함","밥먹고싶음"],
+        "cosultSt":["자고싶다","궁시렁궁시렁","잠온다"],
+        "researchField":["민물","보안","집밥","백선생"],
+        "lab":["민물","학부연구생 O"],
+        "src":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA2MDdfMTkw%2FMDAxNjg2MTM5ODkwNDcz.1n_Bmuq_cBAqZZnD6LFE4ggB8FBXpcEZkGpSXZTIV7Eg.Z0qS9dd-3WAqGBFy0Y_K5Gh8FZtMsd-GH07fOwJ21lYg.JPEG.natural6099%2F20230529_164804.jpg&type=sc960_832"
+
+
+    },
+    {
+        "id":5,
+        "name":"엄소은",
+        "major":"컴퓨터공학과",
+        "lectureSt":["엄...","소....","은","밥먹고싶음"],
+        "cosultSt":["mbti싫어함","궁시렁궁시렁","잠온다"],
+        "researchField":["한식좋아함","보안","집밥","엄선생"],
+        "lab":["공부안함","학부연구생 O"],
+        "src":"https://postfiles.pstatic.net/MjAyMzAzMDlfMzkg/MDAxNjc4MzE0OTIyNDg2.082esSChWWq5nEoUeOW_pvS2IrPGKjmHZcitSqw7dyog.c2bPkfKN_ctm7h5XYeyI4ZigCNepwniUJM1jem5n68gg.PNG.kjseobeh5/image.png?type=w580"
+
+    },
+    {
+        "id":6,
+        "name":"이지현",
+        "major":"컴퓨터공학과",
+        "lectureSt":["이...","지....","현","대자동차"],
+        "cosultSt":["앞자리 앉음","궁시렁궁시렁","잠온다"],
+        "researchField":["구석탱이에서","보안","집밥","백선생"],
+        "lab":["자주 바쁨","학부연구생 O"],
+        "src":"http://newcms.kmu.ac.kr/sites/test/contents/images/2017/10/20171012_153940625_48688.jpg"
+
+    },
+    {
+        "id":7,
+        "name":"권소희",
+        "major":"컴퓨터공학과",
+        "lectureSt":["권...","소....","희","희낙낙"],
+        "cosultSt":["엄소은 옆자리","궁시렁궁시렁","잠온다"],
+        "researchField":["소현이 아님","보안","집밥","백선생"],
+        "lab":["상상력 풍부","학부연구생 O"],
+        "src":"http://newcms.kmu.ac.kr/sites/test/contents/images/2017/10/20171012_153940625_48688.jpg"
+
+    },
+    {
+        "id":8,
+        "name":"강현철",
+        "major":"컴퓨터공학과",
+        "lectureSt":["강함...","현대자동차..","철","분부족"],
+        "cosultSt":["맨날 피곤함","궁시렁궁시렁","잠온다"],
+        "researchField":["소현이 아니고 소희임","보안","집밥","백선생"],
+        "lab":["나이 많음","학부연구생 O"],
+        "src":"https://search.pstatic.net/common?type=b&size=3000&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202301%2F20230127132729112.jpg"
+
+    }
+
+
+]
