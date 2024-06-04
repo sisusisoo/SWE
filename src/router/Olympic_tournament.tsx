@@ -40,6 +40,7 @@ export interface ProfDB {//export
     상담5:string,
     승리횟수:number,
     연구실이름:string
+    ProfUID:string
 
     
   }
@@ -52,6 +53,8 @@ export default function Olympic_tournament(){
     const [displayProf,setDisplayProf] =useState([]);
     //첨에 교수님 순서 랜덤 돌리기 
     const profArray=useRef<ProfDB[]>([])
+    //const tempArray=useRef<ProfDB[]>([])
+    const flag=useRef(0);
     const [Winners,setWinners]=useState([])
     const [round,setRound]=useState(1)
     const [isFinal,setIsFinal]=useState(0)
@@ -66,6 +69,7 @@ export default function Olympic_tournament(){
     // },[])
 
     useEffect(()=>{
+        console.log("useEffect")
     const fetchData=async () => {
     const profQuery=query(
         collection(db, "professor"),
@@ -80,21 +84,26 @@ export default function Olympic_tournament(){
             상담1,상담2,상담3,상담4,상담5,승리횟수,
             연구실이름
           } = doc.data();
-          console.log("Sdsd",doc.id)
+          const ProfUID=doc.id
           return {
             이름,email,img,tel,세부전공,연구분야,연구실,학력, 
             강의1,강의2,강의3,강의4,강의5,
             상담1,상담2,상담3,상담4,상담5,승리횟수,
-            연구실이름
+            연구실이름,ProfUID
           };
         })
         profArray.current=prof.sort(()=>Math.random()-0.5);
-
-        setDisplayProf([profArray.current[0],profArray.current[1]])    
+        //console.log(profArray.current);
+        
+        setDisplayProf([profArray.current[0],profArray.current[1]])
+        console.log("on snapshot")
+        flag.current=1;
     }   
     )
     }
+    if(flag.current===0){// 마지막에 승리횟수 올리면 db가 업데이트 되면서 snapshot이 실행되어 리렌더링하는것을 방지
     fetchData();
+    }
     
     },[])
 
@@ -112,39 +121,49 @@ export default function Olympic_tournament(){
     }
 
     const pick = (picked)=>()=>{
+        const temp=[];
+  
         if(profArray.current.length <=2){
             setRound(round+1)
             if(Winners.length ===0){
                 setIsFinal(1)
                 setFinaltext(picked.이름+" 교수님이 우승했어요!!!")
                 profArray.current=[picked];
+            
                 setDisplayProf([profArray.current[0]])
-                updateWinCounter(profArray.current[0].이름)
+        
+                
             }
             else{
                 
                 profArray.current=[...Winners,picked];//승자들끼리 다시 시작 마지막 주자 picked 까지 넣으면서 
                 setDisplayProf([profArray.current[0],profArray.current[1]])
                 setWinners([])
+                console.log("else")
             }
         }
         else if(profArray.current.length > 2){
             setWinners([...Winners,picked])     
             profArray.current=profArray.current.slice(2);       //2번째 부터 저장 !!!!!!!!!!!
             setDisplayProf([profArray.current[0],profArray.current[1]])
+            console.log("else if")
 
         }
     }
-    const updateWinCounter = async(prof) =>{
-        const q = query(collection(db, "professor"), where("이름", "==", prof));
-        // const querySnapshot = await getDocs(q);
+    //교수님별 승리횟수 입력
+    const updateWinCounter = async() =>{
 
-
-      const winnerProfRef=doc(db,"professor",prof);//이거 쿼리로 바꾸기
+      
+      console.log("debug update", profArray.current[0].이름 ,profArray.current[0].ProfUID)
+      const winnerProfRef=doc(db,"professor",profArray.current[0].ProfUID);//이거 쿼리로 바꾸기
+     
       await updateDoc(winnerProfRef,{   
-        승리횟수:increment(1),
+         승리횟수:increment(1),
+        //승리횟수:1
       })
-
+     
+        navigate("/")//olympilc-soeun
+      
     }
 
     return (
@@ -155,6 +174,9 @@ export default function Olympic_tournament(){
             <div id="content-olympic">
                 <h3 id="round">Round {round}</h3>
                 <h3 id="finalText"> {finalText}</h3>
+                {isFinal ?
+                <h5> <button type="button" onClick={()=>updateWinCounter()} id="choice" className="btn btn-primary">결과 저장</button></h5>:null}
+                
                 <div id="content">
                 {/*여기서부터 반복*/}
                 {displayProf.map((prof)=>{

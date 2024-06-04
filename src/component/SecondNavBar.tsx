@@ -10,9 +10,6 @@ import { useNavigate } from "react-router-dom";
 export default function SecondNavBar(){
   const navigate=useNavigate();
 
-  const toTournament=()=>{
-    navigate("/Olympic_soeun")//olympilc-soeun
-  }
   const toOlympic=()=>{
     navigate("/")//olympilc-soeun
   }
