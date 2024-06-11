@@ -20,11 +20,14 @@ import Olympic_tournament from './router/Olympic_tournament'
 
 import Olympic_search from './router/Olympic-Search'
 import Olympic_consult from './router/Olympic_consult'
-import Olympic_board from './router/Olympic_board'
+//import Olympic_board from './router/Olympic_board'
 import ProfileSWE from './router/ProfileSWE'
 import Member from './router/Member'
 import LoginSWE from './router/LoginSWE'
 import Create_accountSWE from './router/Create_accountSWE'
+
+// Olympic_board 해제하고 추가
+import Olympic_sohee from './router/Olympic_sohee'
 
 
 const router =createBrowserRouter([
@@ -66,7 +69,7 @@ const router =createBrowserRouter([
     ,
     {
       path:"/olympic_board",
-      element:<Olympic_board/>
+      element:<Olympic_sohee/>
     }
     ,
     {
@@ -103,6 +106,10 @@ const GlobalStyles =createGlobalStyle`
 ${reset};
 *{
   box-sizing:border-box;
+  // 아래 font 관련 추가
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 body{
   //background-color:black;
