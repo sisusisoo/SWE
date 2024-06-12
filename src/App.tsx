@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react'
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import styled from 'styled-components'
-import Layout from './component/Layout'
 import LayoutSWE from './component/LayoutSWE'
-import Home from './router/Home'
 
 import Olympic_main from './router/Olympic_main'
-import Login from './router/login'
-import CreateAccount from './router/create-account'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 import LoadingScreen from './component/loading-screen'
@@ -76,11 +72,8 @@ const router =createBrowserRouter([
       path:"/Member",
       element:<Member/>
     }
-    ,
-    {
-      path:"/Login",
-      element:<Login/>
-    }
+    
+  
   ]
 },
 {
@@ -92,10 +85,7 @@ const router =createBrowserRouter([
   path:"/create_accountSWE",
   element:<Create_accountSWE/>
 },
-{
-  path:"/create_account",
-  element:<CreateAccount/>
-},
+
 
 
 

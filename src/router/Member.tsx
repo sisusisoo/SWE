@@ -33,7 +33,7 @@ export interface UMember {//export
 
 }
 
-export default function LayoutSWE() {
+export default function Member() {
   const [student, setStudent] = useState<UMember[]>([])
   const [prof, setProf] = useState<UMember[]>([])
 
