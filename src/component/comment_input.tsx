@@ -1,7 +1,7 @@
 import { useState } from "react";
-import moment from "moment";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export type ProfCategory = {
     id: number;
@@ -39,6 +39,13 @@ export function CommentInput() {
     const [selectedProf, setSelectedProf] = useState<ProfCategory>(profCategoryList[0]);
     const [selectedWrite, setSelectedWrite] = useState<WriteCategory>(writeCategoryList[0]);
 
+    const formatDate = (date: Date): string => {
+        const year = String(date.getFullYear()).slice(-2);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}.${month}.${day}`;
+    }
+
     const onChangeProfCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const prof = profCategoryList.find(p => p.id === Number(e.target.value));
         if (prof) setSelectedProf(prof);
@@ -64,7 +71,7 @@ export function CommentInput() {
                 createdAt: Date.now(),
                 username: user.displayName || "Anonymous",
                 userId: user.uid,
-                writeDate: moment().format('YY.MM.DD'),
+                writeDate: formatDate(new Date()),
                 profCategoty: selectedProf.label,
                 writeCategory: selectedWrite.label,
             });

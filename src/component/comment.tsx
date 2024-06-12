@@ -3,6 +3,8 @@ import { auth, db } from "../firebase";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { IComment } from "./comment_show";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BsPencilFill, BsFillTrash3Fill  } from "react-icons/bs";
 
 const Wrapper = styled.div`
     display: flex;
@@ -102,11 +104,17 @@ export default function Comment({userId, id, username, writeDate, profCategory, 
             {user?.uid === userId && (
                 <>
                     {isUpdating ? (
-                        <UpdateBtn onClick={onUpdate} className="bi bi-pencil-fill"></UpdateBtn>
+                        <UpdateBtn onClick={onUpdate}>
+                            <BsPencilFill />
+                        </UpdateBtn>
                     ) : (
-                        <UpdateBtn onClick={toUpdate} className="bi bi-pencil-fill"></UpdateBtn>
+                        <UpdateBtn onClick={toUpdate}>
+                            <BsPencilFill />
+                        </UpdateBtn>
                     )}&nbsp;
-                    <DeleteBtn onClick={onDelete} className="bi bi-trash3-fill"></DeleteBtn>
+                    <DeleteBtn onClick={onDelete}>
+                        <BsFillTrash3Fill />
+                    </DeleteBtn>
                 </>
             )}
         </Wrapper>

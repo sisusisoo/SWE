@@ -64,7 +64,7 @@ export default function CommentShow() {
             const commentQuery = query(
                 collection(db, "comments"),
                 orderBy("createdAt", "asc"),
-                limit(10)
+                limit(30)
             );
 
             unsubscribe = onSnapshot(commentQuery, (snapshot) => {
