@@ -95,12 +95,14 @@ export default function CommentShow() {
             {comments.map((comment, index) => (
                 <Wrapper key={comment.id}>
                     <No>{index + 1}</No>
-                    <No>{comment.profCategoty}</No>
                     <Username>{comment.username}</Username>
                     <WriteDate>{comment.writeDate}</WriteDate>
+                    
+                    
                     <CategoryTD>
                         <CategoryBtn className="btn btn-outline-secondary">{comment.writeCategory}</CategoryBtn>
                     </CategoryTD>
+                    <No>{comment.profCategoty}</No>
                     <TableCell>
                         <Comment key={comment.id} {...comment} />
                     </TableCell>

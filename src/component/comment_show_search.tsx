@@ -56,10 +56,11 @@ const PageBar = styled.div`
 `;
 
 export default function CommentShowSearch({name}) {
-    console.log("name",name)
+    console.log("name show search",name)
     const [comments, setComments] = useState<IComment[]>([]);
 
     useEffect(() => {
+        console.log("디버그")
         let unsubscribe: Unsubscribe | null = null;
         const fetchComments = async () => {
             const commentQuery = query(
@@ -69,7 +70,7 @@ export default function CommentShowSearch({name}) {
                 limit(5)
             );
 
-            unsubscribe = onSnapshot(commentQuery, (snapshot) => {
+            unsubscribe= await onSnapshot(commentQuery, (snapshot) => {
                 const comments = snapshot.docs.map((doc) => {
                     const { comment, createdAt, userId, username, writeDate, profCategoty, writeCategory } = doc.data();
                     return {
@@ -84,14 +85,14 @@ export default function CommentShowSearch({name}) {
                     };
                 });
                 setComments(comments);
-                console.log("sd",comments)
+                console.log("sd",comments);
             });
         };
         fetchComments();
         return () => {
             unsubscribe && unsubscribe();
         };
-    }, []);
+    }, [name]);
 
     return (
         <>

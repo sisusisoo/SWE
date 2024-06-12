@@ -168,7 +168,9 @@ export default function Olympic_search() {
                 </div>
 
                 {/*댓글*/}
-                        <CommentShowSearch name={searchInput}/>
+                        
+                <CommentShowSearch name={searchInput}/>
+                
                         {/* <CommentShow></CommentShow> */}
             </div >
         </div >
