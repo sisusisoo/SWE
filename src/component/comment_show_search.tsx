@@ -1,5 +1,5 @@
 import { Unsubscribe } from "firebase/auth";
-import { collection, limit, onSnapshot, orderBy, query,where} from "firebase/firestore";
+import { collection, limit, onSnapshot, orderBy, query,where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../firebase";
@@ -17,7 +17,7 @@ export interface IComment {
 }
 
 const Wrapper = styled.tr`
-    border-style: solid;
+    border-style: solid;    
     border-color: #ccc;
     border-width: 0;
 `;
@@ -55,7 +55,8 @@ const PageBar = styled.div`
     margin: 20px 0;
 `;
 
-export default function CommentShow() {
+export default function CommentShowSearch({name}) {
+    console.log("name",name)
     const [comments, setComments] = useState<IComment[]>([]);
 
     useEffect(() => {
@@ -63,8 +64,9 @@ export default function CommentShow() {
         const fetchComments = async () => {
             const commentQuery = query(
                 collection(db, "comments"),
+                where("profCategoty", "==", name),
                 orderBy("createdAt", "asc"),
-                limit(30)
+                limit(5)
             );
 
             unsubscribe = onSnapshot(commentQuery, (snapshot) => {
@@ -82,6 +84,7 @@ export default function CommentShow() {
                     };
                 });
                 setComments(comments);
+                console.log("sd",comments)
             });
         };
         fetchComments();
@@ -95,7 +98,6 @@ export default function CommentShow() {
             {comments.map((comment, index) => (
                 <Wrapper key={comment.id}>
                     <No>{index + 1}</No>
-                    <No>{comment.profCategoty}</No>
                     <Username>{comment.username}</Username>
                     <WriteDate>{comment.writeDate}</WriteDate>
                     <CategoryTD>

@@ -2,12 +2,97 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Nav} from 'react-bootstrap'
 import "../component/style.css"
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import SecondNavBar from "../component/SecondNavBar"
+import { db } from "../firebase";
+import { useEffect, useState,useRef } from "react";
+import { collection, query, where,onSnapshot } from "firebase/firestore";
+import { Unsubscribe } from "firebase/auth";
+import CommentShowSearch from '../component/comment_show_search';
+import CommentShow from '../component/comment_show';
 
 //import Olympic_soeun from "./Olympic_soeun"
 
+//Firebase DB
+export interface ProfDB {//export
+    이름: string,
+    email: string,
+    img: string,
+    tel: string,
+    세부전공: string,
+    연구분야: string,
+    연구실: string,
+    학력:string,
+    강의1:string,
+    강의2:string,
+    강의3:string,
+    강의4:string,    
+    강의5:string,
+    상담1:string,
+    상담2:string,
+    상담3:string,
+    상담4:string,
+    상담5:string,
+    주요경력1:string,
+    주요경력2:string,
+    주요경력3:string,
+    승리횟수:number,
+    연구실이름:string
+    ProfUID:string
+
+    
+  }
+
+
 export default function Olympic_search() {
+    const [profData,setProfData]=useState<ProfDB[]>([])
+    const [searchInput,setSearchInput]=useState("");
+    let unsubscribe: Unsubscribe | null = null;
+
+
+    const search = async (name,e) =>{
+        e.preventDefault()
+    const profRef = collection(db, "professor");
+    const q = query(profRef, where("이름", "==", name));
+    await onSnapshot(q, (snapshot) => {
+        const prof = snapshot.docs.map((doc) => {
+          const { 이름,email,img,tel,세부전공,연구분야,연구실,학력,
+            강의1,강의2,강의3,강의4,강의5,
+            상담1,상담2,상담3,상담4,상담5,승리횟수,주요경력1,주요경력2,
+            주요경력3,
+            연구실이름
+          } = doc.data();
+          const ProfUID=doc.id
+          console.log("sds")    
+
+          return {
+            이름,email,img,tel,세부전공,연구분야,연구실,학력, 
+            강의1,강의2,강의3,강의4,강의5,
+            상담1,상담2,상담3,상담4,상담5,승리횟수,주요경력1,주요경력2,
+            주요경력3,
+            연구실이름,ProfUID
+          };
+        })
+    
+        setProfData(prof)//prof 안에 해당 교수 정보 저장 
+        console.log("sds",prof[0].이름)    
+
+    }   
+    )
+    }
+
+
+
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {
+            target: { name, value }
+        } = e;
+
+        if (name === "input") {//event.target 뭐시기도 사용할 수 있음 
+            setSearchInput(value);
+        }
+    };
 
     return (
         <div className="card card2" id="box-1">
@@ -16,13 +101,15 @@ export default function Olympic_search() {
                 <div className="prof-container">
                     {/*검색 박스*/}
                     <div className="search-box" id="content-search">
-                        <form className="d-flex" role="search">
+                        <form className="d-flex">{/* 폼요소는 기본으로 제출* 화면전환 방지 필요*/}
                             <input
+                            name="input"
+                            onChange={onChange}
                                 className="form-control me-2"
-                                type="search"
                                 placeholder="Search"
                                 aria-label="Search"/>
-                            <button className="btn btn-primary" type="submit">Search</button>
+
+                            <button className="btn btn-primary" onClick={()=>search(searchInput,event)}>Search</button>
                         </form>
                     </div>
                     {/*프로필 박스*/}
@@ -32,35 +119,29 @@ export default function Olympic_search() {
                         style={{
                             width: "40rem"
                         }}>
-                        <img src="./img/담곰2.jpg" className="card-img-top" alt="..."></img>
-                        <h5 id="prof-title">박요한 교수님</h5>
+                        <img src={profData[0]?.img} className="card-img-top" alt="..."></img>
+                        <h5 id="prof-title">{profData[0]?.이름} 교수님</h5>
 
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
-                                <span className="badge rounded-pill text-bg-warning">전공</span>&nbsp; 전자전기컴퓨터</li>
+                                <span className="badge rounded-pill text-bg-warning">전공</span>&nbsp;{profData[0]?.세부전공}</li>
                             <li className="list-group-item">
                                 <span className="badge rounded-pill text-bg-warning">주요경력</span>
                                 <div>
-                                    • 2019년 9월 ~ 현재 : 계명대학교 공과대학 컴퓨터공학전공 조교수<br/>
-                                    • 2017년 ~ 2019년 : 나사렛대학교 조교수
+                                {profData[0]?.주요경력1}
+                                {profData[0]?.주요경력2}
+                                {profData[0]?.주요경력3}
                                 </div>
                             </li>
                             <li className="list-group-item">
-                                <span className="badge rounded-pill text-bg-warning">연구분야</span>&nbsp; 정보보안</li>
+                                <span className="badge rounded-pill text-bg-warning">연구분야</span>&nbsp; {profData[0]?.연구분야}</li>
                             <li className="list-group-item">
-                                <span className="badge rounded-pill text-bg-warning">Tel</span>&nbsp; (+82) 53-580-5270</li>
+                                <span className="badge rounded-pill text-bg-warning">Tel</span>&nbsp; {profData[0]?.tel}</li>
                             <li className="list-group-item">
-                                <span className="badge rounded-pill text-bg-warning">연구실</span>&nbsp; 공학1관 1319호
+                                <span className="badge rounded-pill text-bg-warning">연구실</span>&nbsp; {profData[0]?.연구실이름}
                                 <div>
-                                    • 상세 연구실 정보 내용
+                                {profData[0]?.연구실}
                                 </div>
-                                <button
-                                    id="toggle-lab"
-                                    className="btn btn-link"
-                                    style={{
-                                        display: "block",
-                                        marginTop: "10px"
-                                    }}>자세히보기</button>
                             </li>
                         </ul>
 
@@ -68,67 +149,27 @@ export default function Olympic_search() {
                             <p className="card-text">
                                 <i className="bi bi-check2-circle blue">강의st</i>
                                 <br></br>
-                                - 꼼꼼하고 이해하기 쉬운 설명<br></br>
-                                - 과제: 많은 편<br></br>
-                                - 시험: 문제 알려줘서 부담이 적음<br></br>
-                                - 감점 및 상세점수 공지<br></br>
+                                -{profData[0]?.강의1}<br></br>
+                                -{profData[0]?.강의2}<br></br>
+                                -{profData[0]?.강의3}<br></br>
+                                -{profData[0]?.강의4}<br></br>
+                                -{profData[0]?.강의5}<br></br>
                                 <br></br>
                                 <i className="bi bi-check2-circle blue">상담st</i>
                                 <br></br>
-                                - 꼼꼼하고 이해하기 쉬운 설명<br></br>
-                                - 과제: 많은 편<br></br>
-                                - 시험: 문제 알려줘서 부담이 적음<br></br>
-                                - 감점 및 상세점수 공지<br></br>
+                                -{profData[0]?.상담1}<br></br>
+                                -{profData[0]?.상담2}<br></br>
+                                -{profData[0]?.상담3}<br></br>
+                                -{profData[0]?.상담4}<br></br>
+                                -{profData[0]?.상담5}<br></br>
                             </p>
                         </div>
                     </div>
                 </div>
 
                 {/*댓글*/}
-                < div className="comment">
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col" className="col-no">No.</th>
-                                <th scope="col" className="col-name">이름</th>
-                                <th scope="col" className="col=date">날짜</th>
-                                <th scope="col">내용</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>김철수</td>
-                                <td>21.05.31</td>
-                                <td>
-                                    <a href="#" className="btn btn-outline-secondary name">박요한</a>&nbsp; 출석체크 매번 안해요! 랜덤임&nbsp;
-                                    <i className="bi bi-pencil-fill on-blue"></i>&nbsp;
-                                    <i className="bi bi-trash3-fill on-red"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>이훈이</td>
-                                <td>24.01.15</td>
-                                <td>
-                                    <a href="#" className="btn btn-outline-secondary name">박요한</a>&nbsp; 상담시간 맞춰서 갔는데 안계셨어요 ㅠㅠ&nbsp;
-                                    <i className="bi bi-pencil-fill on-blue"></i>&nbsp;
-                                    <i className="bi bi-trash3-fill on-red"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>맹구</td>
-                                <td>24.5.14</td>
-                                <td>
-                                    <a href="#" className="btn btn-outline-secondary name">박요한</a>&nbsp; linux vim환경에서 C언어로 하는 코딩 과제 매주 있어요&nbsp;
-                                    <i className="bi bi-pencil-fill on-blue"></i>&nbsp;
-                                    <i className="bi bi-trash3-fill on-red"></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <CommentShowSearch name={searchInput}/>
+                        {/* <CommentShow></CommentShow> */}
             </div >
         </div >
     )

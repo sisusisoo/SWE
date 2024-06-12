@@ -47,7 +47,7 @@ const TextArea = styled.textarea`
     }
 `;
 
-export default function Comment({userId, id, username, writeDate, profCategory, writeCategory, comment } : IComment) {
+export default function Comment({userId, id, username, writeDate, profCategoty, writeCategory, comment } : IComment) {
     const user = auth.currentUser;
     const [isUpdating, setIsUpdating] = useState(false);
     const [commentU, setCommentU] = useState(comment);

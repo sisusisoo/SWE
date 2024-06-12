@@ -3,7 +3,6 @@ import { useEffect, useState,useRef } from "react";
 import { collection, limit, onSnapshot, orderBy, query,where,doc, updateDoc,increment,getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import { Unsubscribe } from "firebase/auth";
-import Tweet from "../component/tweet";
 import SecondNavBar from "../component/SecondNavBar" 
 
 //------추가 부트 스트랩 
@@ -85,6 +84,7 @@ export default function Olympic_tournament(){
             연구실이름
           } = doc.data();
           const ProfUID=doc.id
+          console.log("sds")
           return {
             이름,email,img,tel,세부전공,연구분야,연구실,학력, 
             강의1,강의2,강의3,강의4,강의5,

@@ -29,6 +29,7 @@ export default function Olympic_sohee(){
                             <thead>
                                 <tr>
                                     <TableHeader>No.</TableHeader>
+                                    <TableHeader>교수님</TableHeader>
                                     <TableHeader>이름</TableHeader>
                                     <TableHeader>날짜</TableHeader>
                                     <TableHeader>내용</TableHeader>
