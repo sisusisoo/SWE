@@ -131,6 +131,7 @@ export default function Olympic_profile() {
       const ProfUID=doc.id;
       setProfName(name);
       console.log("findProfName이름!",name)
+      setSearchInput(name);
     }
     )
     

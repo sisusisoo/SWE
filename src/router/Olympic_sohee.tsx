@@ -1,8 +1,9 @@
-//------추가
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../component/style.css"
-import SecondNavBar from "../component/SecondNavBar";
 import styled from 'styled-components';
+//--------------
+import SecondNavBar from "../component/SecondNavBar";
 import CommentShow from '../component/comment_show';
 import { CommentInput } from '../component/comment_input';
 

@@ -1,0 +1,100 @@
+@startuml
+class ProfileSWEPage {
+  - profData: String[]
+  - searchInput: string
+  - profName: string
+  - search(): void
+  - showProf(): void
+}
+
+class SearchPage {
+  - profData: String[]
+  - searchInput: string
+  - search(): void
+}
+
+class TournamentPage {
+  - teamId: int
+  - name: string
+  + addPlayer(): void
+}
+
+class CommentBoardPage {
+  - playerId: int
+  - name: string
+  + play(): void
+}
+
+class MainPage {
+  - houseId: int
+  - address: string
+  + getAddress(): void
+}
+
+class ConsultPage {
+  - roomId: int
+  - type: string
+  + getRoomType(): void
+}
+
+
+class MemberPage {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+class LoginPage {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+class CreatAccountPage {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+
+class secondNavBarComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+class layoutComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+
+class githubComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+class commentComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+class commentShowComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+class commentInputComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+
+class commentSearchComp {
+  - professorId: int
+  - name: string
+  + teachCourse(): void
+}
+
+Student --> Course : enrollment
+Team o-- Player : aggregation
+House *-- Room : composition
+Person <|-- Student : inheritance
+Course ..> Professor : dependency
+@enduml

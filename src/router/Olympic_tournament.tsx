@@ -3,6 +3,7 @@ import { useEffect, useState,useRef } from "react";
 import { collection, limit, onSnapshot, orderBy, query,where,doc, updateDoc,increment,getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import { Unsubscribe } from "firebase/auth";
+
 import SecondNavBar from "../component/SecondNavBar" 
 
 //------추가 부트 스트랩 

@@ -3,13 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Nav} from 'react-bootstrap'
 import "../component/style.css"
 import {Navigate, useNavigate} from "react-router-dom";
-import SecondNavBar from "../component/SecondNavBar"
+
 import { db } from "../firebase";
 import { useEffect, useState,useRef } from "react";
 import { collection, query, where,onSnapshot } from "firebase/firestore";
 import { Unsubscribe } from "firebase/auth";
+
+
 import CommentShowSearch from '../component/comment_show_search';
-import CommentShow from '../component/comment_show';
+import SecondNavBar from "../component/SecondNavBar"
 
 //import Olympic_soeun from "./Olympic_soeun"
 

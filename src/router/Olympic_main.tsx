@@ -3,6 +3,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../component/style.css"
 import { useNavigate } from "react-router-dom";
+
+
 import SecondNavBar from "../component/SecondNavBar" 
 //import Olympic_soeun from "./Olympic_soeun"
 
