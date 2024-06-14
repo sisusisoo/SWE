@@ -24,6 +24,7 @@ import logo from "../assets/img/olympics.png"
 export default function LayoutSWE(){
     const navigate=useNavigate();
     const [adminOk,setAdminOk]=useState(0);
+    const [profOK,setProfOK]=useState(0);
     const onLogOut = async ()=>{
         const ok=confirm("Are you sure? you want to Log Out");
         if(ok){
@@ -50,7 +51,7 @@ export default function LayoutSWE(){
      }
      useEffect(() => {// admin 사용자만  member접근가능
       
-
+        isProf();
         let unsubscribe: Unsubscribe | null = null;
         const fetchMember = async () => {
             const adminRef = collection(db, "userProfile");
@@ -69,6 +70,10 @@ export default function LayoutSWE(){
             if(adminQ[0].userID===auth.currentUser.uid){
                 setAdminOk(1);
             }
+            if(adminQ[0].profandstu==="prof"){
+                setProfOK(1);
+                console.log("debug 222222222222")
+            }
           })
 
         }
@@ -81,7 +86,22 @@ export default function LayoutSWE(){
             unsubscribe && unsubscribe();
         }
       }, [])
-      
+      //현재 사용자가 교수인지 아닌지
+      const isProf= async ()=>{
+        const adminRef = collection(db, "userProfile");
+        const q = query(adminRef, where("userID", "==", auth.currentUser.uid));
+        await onSnapshot(q, (snapshot) => {
+            const currentUser = snapshot.docs[0].data();
+     
+            console.log("isProf",currentUser);
+            const {name,profandstu} =currentUser;
+            console.log("isProf2",name);
+            console.log("isProf3",profandstu);
+            if(profandstu==="prof"){
+                setProfOK(1);
+            }
+          })
+      }
 
     
     
@@ -96,7 +116,8 @@ export default function LayoutSWE(){
                 <img src={logo} alt="Logo" id="logo" className="d-inline-block align-text-top"></img>
                 <ul className="nav justify-content-end">
                 <li className="nav-item"><a className="nav-link white" aria-current="page" onClick={()=>toHome()}><BsFillHouseFill />&nbsp;Home</a></li>
-                <li className="nav-item"><a className="nav-link white" onClick={()=>toProfile()}><BsPersonFill />MyPage</a></li>
+                {profOK ==1 ?<li className="nav-item"><a className="nav-link white" onClick={()=>toProfile()}><BsPersonFill />MyPage</a></li>:
+                null}
                 <li className="nav-item"><a className="nav-link white" onClick={()=>onLogOut()}><BsDoorOpenFill />&nbsp;Logout</a></li>
                 {adminOk == 1 ?<li className="nav-item"><a className="nav-link white" onClick={()=>toMember()}><FaAddressBook />&nbsp;Member</a></li>:
                 null }
